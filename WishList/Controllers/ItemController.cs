@@ -10,7 +10,7 @@ namespace WishList.Controllers
 {
     public class ItemController : Controller
     {
-        private readonly ApplicationDbContext _context { get; set; }
+        private ApplicationDbContext _context { get; set; }
 
         public ItemController(ApplicationDbContext _context)
         {
