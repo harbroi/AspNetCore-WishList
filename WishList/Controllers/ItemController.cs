@@ -23,6 +23,11 @@ namespace WishList.Controllers
         }
 
         [HttpGet]
+        public IActionResult Create()
+        {
+            return View("Create");
+        }
+
         public IActionResult Create(Item item)
         {
             _context.Items.Add(item);
