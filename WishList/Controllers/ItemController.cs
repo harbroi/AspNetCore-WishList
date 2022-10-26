@@ -10,29 +10,30 @@ namespace WishList.Controllers
 {
     public class ItemController : Controller
     {
-        private ApplicationDbContext _context { get; set; }
+        private readonly ApplicationDbContext _context;
 
-        public ItemController(ApplicationDbContext _context)
+        public ItemController(ApplicationDbContext context)
         {
-
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View(_context.Items);
+            return View(_context.Items.ToList());
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Create(Item item)
         {
-            _context.Add(item);
+            _context.Items.Add(item);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            _context.Remove(id);
+            var item = _context.Items.FirstOrDefault(x => x.Id == id);
+            _context.Items.Remove(item);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
